@@ -1,0 +1,48 @@
+﻿@model List<MailletAssignment3.Models.Customer>
+@{
+    ViewBag.Title = "All";
+}
+
+<h2>All Customers</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search..." />
+    </div>
+    <div class="col-md-3">
+        <input type="button" class="btn btn-info" value="Search" onclick="Sortable.Search();" />
+    </div>
+    <div class="col-md-3">
+        <input type="button" class="btn btn-info" value="Add Customer" onclick="window.location.href = '/Customers/Upsert'" />
+    </div>
+</div>
+
+<table class="sortable table table-hover">
+    <thead>
+        <tr>
+            <th onclick="Sortable.Sort(0);">Customer ID</th>
+            <th onclick="Sortable.Sort(1);">Name</th>
+            <th onclick="Sortable.Sort(2);">Address</th>
+            <th onclick="Sortable.Sort(3);">City</th>
+            <th onclick="Sortable.Sort(4);">State</th>
+            <th onclick="Sortable.Sort(4);">ZipCode</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @**Loop through cuslist and display customers to table*@
+        @foreach (var cus in Model)
+        {
+        <tr>
+            <td>@cus.CustomerID</td>
+            <td>@cus.Name</td>
+            <td>@cus.Address</td>
+            <td>@cus.City</td>
+            <td>@cus.State</td>
+            <td>@cus.ZipCode</td>
+            <td><a href="/Customers/Upsert/@cus.CustomerID">Edit</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script>Sortable.baseUrl = '/Customers/All/';</script>

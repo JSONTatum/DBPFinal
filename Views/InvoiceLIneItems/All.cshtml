@@ -1,0 +1,46 @@
+﻿@model List<MailletAssignment3.Models.InvoiceLineItem>
+@{
+    ViewBag.Title = "All";
+}
+
+<h2>All Invoice Line Items</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search..." />
+    </div>
+    <div class="col-md-3">
+        <input type="button" class="btn btn-info" value="Search" onclick="Sortable.Search();" />
+    </div>
+    <div class="col-md-3">
+        <input type="button" class="btn btn-info" value="Add Invoice Line Item" onclick="window.location.href = '/InvoiceLineItems/Upsert'" />
+    </div>
+</div>
+
+<table class="sortable table table-hover">
+    <thead>
+        <tr>
+            <th onclick="Sortable.Sort(0);">Invoice ID</th>
+            <th onclick="Sortable.Sort(1);">Product Code</th>
+            <th onclick="Sortable.Sort(2);">Unit Price</th>
+            <th onclick="Sortable.Sort(3);">Quantity</th>
+            <th onclick="Sortable.Sort(4);">ItemTotal</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @**Loop through cuslist and display customers to table*@
+        @foreach (var ilt in Model)
+        {
+        <tr>
+            <td>@ilt.InvoiceID</td>
+            <td>@ilt.ProductCode</td>
+            <td>@ilt.UnitPrice.ToString("C")</td>
+            <td>@ilt.Quantity</td>
+            <td>@ilt.ItemTotal.ToString("C")</td>
+            <td><a href="/InvoiceLineItems/Upsert/@ilt.ProductCode@ilt.InvoiceID">Edit</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script>Sortable.baseUrl = '/InvoiceLineItems/All/';</script>

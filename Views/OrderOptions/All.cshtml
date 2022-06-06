@@ -1,0 +1,42 @@
+﻿@model List<MailletAssignment3.Models.OrderOption>
+@{
+    ViewBag.Title = "All";
+}
+
+<h2>All Order Options</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search..." />
+    </div>
+    <div class="col-md-3">
+        <input type="button" class="btn btn-info" value="Search" onclick="Sortable.Search();" />
+    </div>
+    <div class="col-md-3">
+        <input type="button" class="btn btn-info" value="Add Order Option" onclick="window.location.href = '/OrderOptions/Upsert'" />
+    </div>
+</div>
+
+<table class="sortable table table-hover">
+    <thead>
+        <tr>
+            <th onclick="Sortable.Sort(0);">Sales Tax Rate</th>
+            <th onclick="Sortable.Sort(1);">First Book Shipping Charge</th>
+            <th onclick="Sortable.Sort(2);">Additional Book Shipping Charge</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @**Loop through cuslist and display customers to table*@
+        @foreach (var oo in Model)
+        {
+        <tr>
+            <td>@oo.SalesTaxRate.ToString("P")</td>
+            <td>@oo.FirstBookShipCharge.ToString("C")</td>
+            <td>@oo.AdditionalBookShipCharge.ToString("C")</td>
+            <td><a href="/OrderOptions/Upsert/0">Edit</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script>Sortable.baseUrl = '/OrderOptions/All/';</script>

@@ -1,0 +1,50 @@
+﻿@model List<MailletAssignment3.Models.Invoice>
+@{
+    ViewBag.Title = "All";
+}
+
+<h2>All Invoices</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search..." />
+    </div>
+    <div class="col-md-3">
+        <input type="button" class="btn btn-info" value="Search" onclick="Sortable.Search();" />
+    </div>
+    <div class="col-md-3">
+        <input type="button" class="btn btn-info" value="Add Invoice" onclick="window.location.href = '/Invoices/Upsert'" />
+    </div>
+</div>
+
+<table class="sortable table table-hover">
+    <thead>
+        <tr>
+            <th onclick="Sortable.Sort(0);">Invoice ID</th>
+            <th onclick="Sortable.Sort(1);">Customer ID</th>
+            <th onclick="Sortable.Sort(2);">Invoice Date</th>
+            <th onclick="Sortable.Sort(3);">Product Total</th>
+            <th onclick="Sortable.Sort(4);">Sales Tax</th>
+            <th onclick="Sortable.Sort(3);">Shipping</th>
+            <th onclick="Sortable.Sort(4);">Invoice Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @**Loop through cuslist and display customers to table*@
+        @foreach (var inv in Model)
+        {
+        <tr>
+            <td>@inv.InvoiceID</td>
+            <td>@inv.CustomerID</td>
+            <td>@inv.InvoiceDate</td>
+            <td>@inv.ProductTotal.ToString("C")</td>
+            <td>@inv.SalesTax.ToString("C")</td>
+            <td>@inv.Shipping.ToString("C")</td>
+            <td>@inv.InvoiceTotal.ToString("C")</td>
+            <td><a href="/Invoices/Upsert/@inv.InvoiceID">Edit</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script>Sortable.baseUrl = '/Invoices/All/';</script>
