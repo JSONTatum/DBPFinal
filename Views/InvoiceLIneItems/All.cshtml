@@ -38,7 +38,9 @@
             <td>@ilt.UnitPrice.ToString("C")</td>
             <td>@ilt.Quantity</td>
             <td>@ilt.ItemTotal.ToString("C")</td>
-            <td><a href="/InvoiceLineItems/Upsert/@ilt.ProductCode@ilt.InvoiceID">Edit</a></td>
+            <td>
+                <a href="/InvoiceLineItems/Upsert/@ilt.ProductCode@ilt.InvoiceID">Edit</a>
+            </td>
         </tr>
         }
     </tbody>

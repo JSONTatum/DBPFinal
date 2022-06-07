@@ -65,5 +65,35 @@ namespace MailletAssignment3.Controllers
             }
             return View(ooList);
         }
+        // UPSERT: OrderOptions
+        [HttpGet]
+        public ActionResult Upsert(int id = 0)
+        {
+            BookEntities context = new BookEntities();
+            OrderOption oo = context.OrderOptions.First();
+            return View(oo);
+        }
+        [HttpPost]
+        public ActionResult Upsert(OrderOption oo)
+        {
+            BookEntities context = new BookEntities();
+
+            try
+            {
+                if (context.OrderOptions.Count() > 0)
+                {
+                    OrderOption old = context.OrderOptions.First();
+                    old.SalesTaxRate = oo.SalesTaxRate;
+                    old.SalesTaxRate = oo.FirstBookShipCharge;
+                    old.AdditionalBookShipCharge = oo.AdditionalBookShipCharge;
+                }
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return RedirectToAction("All");
+        }
     }
 }

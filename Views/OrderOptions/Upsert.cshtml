@@ -1,0 +1,14 @@
+﻿@model MailletAssignment3.Models.OrderOption
+@{
+    ViewBag.Title = "Upsert";
+}
+
+<h2>Update Order Options</h2>
+
+@using (Html.BeginForm("Upsert", "OrderOptions", FormMethod.Post))
+{
+    @Html.TextBoxFor(c => c.SalesTaxRate, new { @class = "form-control", type = "number", placeholder = "Sales Tax Rate" })
+    @Html.TextBoxFor(c => c.FirstBookShipCharge, new { @class = "form-control", type = "number", placeholder = "First Book Shipping Charge" })
+    @Html.TextBoxFor(c => c.AdditionalBookShipCharge, new { @class = "form-control", type = "number", placeholder = "Additional Book Shipping Charge" })
+    <input type="submit" , value="Submit" , class="btn btn-info" />
+}

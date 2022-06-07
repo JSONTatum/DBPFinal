@@ -233,6 +233,12 @@
     <Content Include="Views\OrderOptions\All.cshtml" />
     <Content Include="Views\Products\All.cshtml" />
     <Content Include="Views\States\All.cshtml" />
+    <Content Include="Views\Customers\Upsert.cshtml" />
+    <Content Include="Views\States\Upsert.cshtml" />
+    <Content Include="Views\Products\Upsert.cshtml" />
+    <Content Include="Views\OrderOptions\Upsert.cshtml" />
+    <Content Include="Views\Invoices\Upsert.cshtml" />
+    <Content Include="Views\InvoiceLIneItems\Upsert.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -53,5 +53,65 @@ namespace MailletAssignment3.Controllers
             }
             return View(stateList);
         }
+        // UPSERT: States
+        [HttpGet]
+        public ActionResult Upsert(string id)
+        {
+            BookEntities context = new BookEntities();
+            State state = context.States.Where(c => c.StateCode == id).FirstOrDefault();
+            return View(state);
+        }
+        [HttpPost]
+        public ActionResult Upsert(State state)
+        {
+            BookEntities context = new BookEntities();
+
+            try
+            {
+                if (context.States.Where(c => c.StateCode == state.StateCode).Count() > 0)
+                {
+                    State old = context.States.Where(c => c.StateCode == state.StateCode).FirstOrDefault();
+                    old.StateCode = state.StateCode;
+                    old.StateName = state.StateName;
+                }
+                else
+                {
+                    context.States.Add(state);
+                }
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return RedirectToAction("All");
+        }
+        // DELETE: States
+        [HttpGet]
+        public ActionResult Delete(string id)
+        {
+            BookEntities context = new BookEntities();
+            State state = context.States.Where(c => c.StateCode == id).FirstOrDefault();
+            return View(state);
+        }
+        [HttpDelete]
+        public ActionResult Delete(State state)
+        {
+            BookEntities context = new BookEntities();
+            try
+            {
+                if (context.States.Where(c => c.StateCode== state.StateCode).Count() > 0)
+                {
+                    State old = context.States.Where(c => c.StateCode== state.StateCode).FirstOrDefault();
+                    context.States.Remove(old);
+                }
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return RedirectToAction("All");
+        }
     }
 }

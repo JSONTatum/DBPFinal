@@ -100,5 +100,69 @@ namespace MailletAssignment3.Controllers
             }
             return View(cusList);
         }
+        // UPSERT: Customers
+        [HttpGet]
+        public ActionResult Upsert(int id = 0)
+        {
+            BookEntities context = new BookEntities();
+            Customer cus = context.Customers.Where(c => c.CustomerID == id).FirstOrDefault();
+            return View(cus);
+        }
+        [HttpPost]
+        public ActionResult Upsert(Customer cus)
+        {
+            BookEntities context = new BookEntities();
+
+            try
+            {
+                if (context.Customers.Where(c => c.CustomerID == cus.CustomerID).Count() > 0)
+                {
+                    Customer old = context.Customers.Where(c => c.CustomerID == cus.CustomerID).FirstOrDefault();
+                    old.Name = cus.Name;
+                    old.Address = cus.Address;
+                    old.City = cus.City;
+                    old.State = cus.State;
+                    old.ZipCode = cus.ZipCode;
+                }
+                else
+                {
+                    context.Customers.Add(cus);
+                }
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return RedirectToAction("All");
+        }
+        // DELETE: Customers
+        [HttpGet]
+        public ActionResult Delete(int id = 0)
+        {
+            BookEntities context = new BookEntities();
+            Customer cus = context.Customers.Where(c => c.CustomerID == id).FirstOrDefault();
+            return View(cus);
+        }
+        [HttpDelete]
+        public ActionResult Delete(Customer cus)
+        {
+            BookEntities context = new BookEntities();
+
+            try
+            {
+                if (context.Customers.Where(c => c.CustomerID == cus.CustomerID).Count() > 0)
+                {
+                    Customer old = context.Customers.Where(c => c.CustomerID == cus.CustomerID).FirstOrDefault();
+                    context.Customers.Remove(old);
+                }
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return RedirectToAction("All");
+        }
     }
 }

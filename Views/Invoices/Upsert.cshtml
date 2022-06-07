@@ -1,0 +1,18 @@
+﻿@model MailletAssignment3.Models.Invoice
+@{
+    ViewBag.Title = "Upsert";
+}
+
+<h2>Upsert An Invoice</h2>
+
+@using (Html.BeginForm("Upsert", "Invoices", FormMethod.Post))
+{
+    @Html.HiddenFor(c => c.InvoiceID)
+    @Html.TextBoxFor(c => c.CustomerID, new { @class = "form-control", type = "number", placeholder = "Customer ID" })
+    @Html.EditorFor(c => c.InvoiceDate, new { @class = "form-control", type = "datetime", placeholder = DateTime.Now })
+    @Html.TextBoxFor(c => c.ProductTotal, new { @class = "form-control", type = "number", placeholder = "Product Total" })
+    @Html.TextBoxFor(c => c.SalesTax, new { @class = "form-control", type = "number", placeholder = "Sales Tax" })
+    @Html.TextBoxFor(c => c.Shipping, new { @class = "form-control", type = "number", placeholder = "Shipping" })
+    @Html.TextBoxFor(c => c.InvoiceTotal, new { @class = "form-control", type = "number", placeholder = "Invoice Total" })
+    <input type="submit" , value="Submit" , class="btn btn-info" />
+}

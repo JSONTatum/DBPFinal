@@ -102,5 +102,69 @@ namespace MailletAssignment3.Controllers
             }
             return View(invList);
         }
+        // UPSERT: Invoices
+        [HttpGet]
+        public ActionResult Upsert(int id = 0)
+        {
+            BookEntities context = new BookEntities();
+            Invoice invoice = context.Invoices.Where(c => c.InvoiceID == id).FirstOrDefault();
+            return View(invoice);
+        }
+        [HttpPost]
+        public ActionResult Upsert(Invoice invoice)
+        {
+            BookEntities context = new BookEntities();
+
+            try
+            {
+                if (context.Invoices.Where(c => c.InvoiceID == invoice.InvoiceID).Count() > 0)
+                {
+                    Invoice old = context.Invoices.Where(c => c.InvoiceID == invoice.InvoiceID).FirstOrDefault();
+                    old.CustomerID = invoice.CustomerID;
+                    old.InvoiceDate = invoice.InvoiceDate;
+                    old.ProductTotal = invoice.ProductTotal;
+                    old.SalesTax = invoice.SalesTax;
+                    old.Shipping = invoice.Shipping;
+                    old.InvoiceTotal = invoice.InvoiceTotal;
+                }
+                else
+                {
+                    context.Invoices.Add(invoice);
+                }
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return RedirectToAction("All");
+        }
+        // DELETE: Invoices
+        [HttpGet]
+        public ActionResult Delete(int id = 0)
+        {
+            BookEntities context = new BookEntities();
+            Invoice invoice = context.Invoices.Where(c => c.InvoiceID == id).First();
+            return View(invoice);
+        }
+        [HttpDelete]
+        public ActionResult Delete(Invoice invoice)
+        {
+            BookEntities context = new BookEntities();
+            try
+            {
+                if (context.Invoices.Where(c => c.InvoiceID == invoice.InvoiceID).Count() > 0)
+                {
+                    Invoice old = context.Invoices.Where(c => c.InvoiceID == invoice.InvoiceID).FirstOrDefault();
+                    context.Invoices.Remove(old);
+                }
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return RedirectToAction("All");
+        }
     }
 }

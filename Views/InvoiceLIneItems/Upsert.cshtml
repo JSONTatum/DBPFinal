@@ -1,0 +1,26 @@
+﻿@model MailletAssignment3.Models.InvoiceLineItem
+@{
+    ViewBag.Title = "Upsert";
+}
+
+<h2>Upsert An Invoice Line Item</h2>
+
+@using (Html.BeginForm("Upsert", "InvoiceLineItems", FormMethod.Post))
+{
+
+    if (Model.InvoiceID == 0 && Model.ProductCode.IsEmpty())
+    {
+        @Html.TextBoxFor(c => c.InvoiceID, new { @class = "form-control", placeholder = "Invoice ID" })
+        @Html.TextBoxFor(c => c.ProductCode, new { @class = "form-control", type = "number", placeholder = "Product Code" })
+    }
+    else
+    {
+        @Html.HiddenFor(c => c.InvoiceID)
+        @Html.HiddenFor(c => c.ProductCode)
+    }
+    @Html.TextBoxFor(c => c.UnitPrice, new { @class = "form-control", type = "number", placeholder = "Price" })
+    @Html.TextBoxFor(c => c.Quantity, new { @class = "form-control", type = "number", placeholder = "Quantity" })
+    @Html.TextBoxFor(c => c.ItemTotal, new { @class = "form-control", type = "number", placeholder = "Total" })
+    <input type="submit" , value="Submit" , class="btn btn-info" />
+    //combine delete into one in controller, use javascript to send fetch request?
+}

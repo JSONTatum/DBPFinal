@@ -1,0 +1,15 @@
+﻿@model MailletAssignment3.Models.Product
+@{
+    ViewBag.Title = "Upsert";
+}
+
+<h2>Upsert A Product</h2>
+
+@using (Html.BeginForm("Upsert", "Products", FormMethod.Post))
+{
+    @Html.HiddenFor(c => c.ProductCode)
+    @Html.TextAreaFor(c => c.Description, new { @class = "form-control", placeholder = "Description" })
+    @Html.TextBoxFor(c => c.UnitPrice, new { @class = "form-control", type = "number", placeholder = "Price" })
+    @Html.TextBoxFor(c => c.OnHandQuantity, new { @class = "form-control", type = "number", placeholder = "Quantity" })
+    <input type="submit" , value="Submit" , class="btn btn-info" />
+}
