@@ -148,6 +148,9 @@ namespace MailletAssignment3.Controllers
         [HttpDelete]
         public ActionResult Delete(InvoiceLineItem ilt)
         {
+            //string productCode = id.Substring(0, 4);
+            //int invoiceID = int.Parse(id.Substring(4));
+            //InvoiceLineItem ilt = context.InvoiceLineItems.Where(c => c.ProductCode == productCode && c.InvoiceID == invoiceID).FirstOrDefault();
             BookEntities context = new BookEntities();
             try
             {
