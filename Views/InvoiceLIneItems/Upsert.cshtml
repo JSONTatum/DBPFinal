@@ -8,19 +8,28 @@
 @using (Html.BeginForm("Upsert", "InvoiceLineItems", FormMethod.Post))
 {
 
-    if (Model.InvoiceID == 0 && Model.ProductCode.IsEmpty())
+    if (Model.InvoiceID == 0 && Model.ProductCode != null)
     {
-        @Html.TextBoxFor(c => c.InvoiceID, new { @class = "form-control", placeholder = "Invoice ID" })
-        @Html.TextBoxFor(c => c.ProductCode, new { @class = "form-control", type = "number", placeholder = "Product Code" })
+        <label for="id">Invoice ID</label>
+        @Html.TextBoxFor(c => c.InvoiceID, new { @id = "id", @class = "form-control", placeholder = "Invoice ID" })
+        <label for="code">Product Code</label>
+        @Html.TextBoxFor(c => c.ProductCode, new { @id = "code", @class = "form-control", type = "number", placeholder = "Product Code" })
     }
     else
     {
         @Html.HiddenFor(c => c.InvoiceID)
         @Html.HiddenFor(c => c.ProductCode)
     }
-    @Html.TextBoxFor(c => c.UnitPrice, new { @class = "form-control", type = "number", placeholder = "Price" })
-    @Html.TextBoxFor(c => c.Quantity, new { @class = "form-control", type = "number", placeholder = "Quantity" })
-    @Html.TextBoxFor(c => c.ItemTotal, new { @class = "form-control", type = "number", placeholder = "Total" })
+    <label for="price">Unit Price</label>
+    @Html.TextBoxFor(c => c.UnitPrice, new { @id = "price", @class = "form-control", type = "number", placeholder = "Price" })
+    <label for="quantity">Quantity</label>
+    @Html.TextBoxFor(c => c.Quantity, new { @id = "quantity", @class = "form-control", type = "number", placeholder = "Quantity" })
+    <label for="total">Item Total</label>
+    @Html.TextBoxFor(c => c.ItemTotal, new { @id = "total", @class = "form-control", type = "number", placeholder = "Total" })
+    if (Model.InvoiceID > 0 && Model.ProductCode != null)
+    {
+        <a href="/InvoiceLineItems/Delete/@Model.ProductCode.Substring(0,4)@Model.InvoiceID"><input type="button" value="Delete" class="btn btn-danger" /></a>
+    }
     <input type="submit" , value="Submit" , class="btn btn-info" />
     //combine delete into one in controller, use javascript to send fetch request?
 }

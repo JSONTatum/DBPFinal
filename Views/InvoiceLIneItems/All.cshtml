@@ -39,10 +39,10 @@
             <td>@ilt.Quantity</td>
             <td>@ilt.ItemTotal.ToString("C")</td>
             <td>
-                <a href="/InvoiceLineItems/Upsert/@ilt.ProductCode@ilt.InvoiceID">Edit</a>
+                <a href="/InvoiceLineItems/Upsert/@ilt.ProductCode.Substring(0,4)@ilt.InvoiceID">Edit</a>
             </td>
         </tr>
         }
     </tbody>
 </table>
-<script>Sortable.baseUrl = '/InvoiceLineItems/All/';</script>
+<script>Sortable.baseUrl = '/InvoiceLineItems/All';</script>

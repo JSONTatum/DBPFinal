@@ -9,7 +9,13 @@ namespace MailletAssignment3.Controllers
 {
     public class InvoicesController : Controller
     {
-        // GET: Invoices
+        /// <summary>
+        /// Queries invoices
+        /// </summary>
+        /// <param name="id">Return invoices that match id</param>
+        /// <param name="sortBy">Sort invoices by field</param>
+        /// <param name="isDesc">Swich between descending and ascending</param>
+        /// <returns>View of invoice list</returns>
         public ActionResult All(string id, int sortBy = 0, bool isDesc = true)
         {
             //open db connection
@@ -102,7 +108,11 @@ namespace MailletAssignment3.Controllers
             }
             return View(invList);
         }
-        // UPSERT: Invoices
+        /// <summary>
+        /// get invoice to upsert
+        /// </summary>
+        /// <param name="id">id of invoice to get</param>
+        /// <returns>invoice object to upsert</returns>
         [HttpGet]
         public ActionResult Upsert(int id = 0)
         {
@@ -110,6 +120,11 @@ namespace MailletAssignment3.Controllers
             Invoice invoice = context.Invoices.Where(c => c.InvoiceID == id).FirstOrDefault();
             return View(invoice);
         }
+        /// <summary>
+        /// upsert an invoice
+        /// </summary>
+        /// <param name="invoice">invoice to upsert</param>
+        /// <returns>view of all invoices after upserting</returns>
         [HttpPost]
         public ActionResult Upsert(Invoice invoice)
         {
@@ -139,14 +154,23 @@ namespace MailletAssignment3.Controllers
             }
             return RedirectToAction("All");
         }
-        // DELETE: Invoices
+        /// <summary>
+        /// get invoice to delete
+        /// </summary>
+        /// <param name="id">id of invoice to delete</param>
+        /// <returns>invoice object to delete</returns>
         [HttpGet]
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
             BookEntities context = new BookEntities();
             Invoice invoice = context.Invoices.Where(c => c.InvoiceID == id).First();
-            return View(invoice);
+            return Delete(invoice);
         }
+        /// <summary>
+        /// delete invoice
+        /// </summary>
+        /// <param name="invoice">invoice object to delete</param>
+        /// <returns>all invoice view after deleting</returns>
         [HttpDelete]
         public ActionResult Delete(Invoice invoice)
         {

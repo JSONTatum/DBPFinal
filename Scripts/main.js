@@ -1,14 +1,11 @@
-﻿var Url = {
-    baseUrl:
-}
-var Sortable = {
+﻿var Sortable = {
     baseUrl: '',
     sortBy: 0,
     searchTerm: '',
     Search() {
         var searchKey = $('#txtSearch').val();
         var enSearch = encodeURI(searchKey);
-        window.location.href = Sortable.baseUrl + "All/" + enSearch + "/";
+        window.location.href = Sortable.baseUrl + enSearch + "/";
     },
     Sort(sortBy) {
 
@@ -26,11 +23,12 @@ var Sortable = {
         window.location.href = Sortable.baseUrl + "?sortBy=" + sortBy + "&isDesc=" + isDesc;
     }
 }
-var Delete = {
-    baseUrl: '',
-    Delete() {
-        let url = baseUrl + "";
-        let options = ;
-        fetch(url, options).then(res => res.headers).then().catch().finally()
-    }
-}
+$(document).ready(function () {
+    $('input[type=datetime]').datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-60:+0"
+    });
+
+});

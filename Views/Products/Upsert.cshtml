@@ -8,8 +8,15 @@
 @using (Html.BeginForm("Upsert", "Products", FormMethod.Post))
 {
     @Html.HiddenFor(c => c.ProductCode)
-    @Html.TextAreaFor(c => c.Description, new { @class = "form-control", placeholder = "Description" })
-    @Html.TextBoxFor(c => c.UnitPrice, new { @class = "form-control", type = "number", placeholder = "Price" })
-    @Html.TextBoxFor(c => c.OnHandQuantity, new { @class = "form-control", type = "number", placeholder = "Quantity" })
+    <label for="description">Product Description</label>
+    @Html.TextAreaFor(c => c.Description, new { @id = "description", @class = "form-control", placeholder = "Description" })
+    <label for="price">Unit Price</label>
+    @Html.TextBoxFor(c => c.UnitPrice, new { @id = "price", @class = "form-control", type = "number", placeholder = "Price" })
+    <label for="quantity">Quantity On Hand</label>
+    @Html.TextBoxFor(c => c.OnHandQuantity, new { @id = "quantity", @class = "form-control", type = "number", placeholder = "Quantity" })
+    if (Model != null)
+    {
+        <a href="/Products/Delete/@Model.ProductCode"><input type="button" value="Delete" class="btn btn-danger" /></a>
+    }
     <input type="submit" , value="Submit" , class="btn btn-info" />
 }

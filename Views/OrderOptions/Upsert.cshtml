@@ -7,8 +7,11 @@
 
 @using (Html.BeginForm("Upsert", "OrderOptions", FormMethod.Post))
 {
-    @Html.TextBoxFor(c => c.SalesTaxRate, new { @class = "form-control", type = "number", placeholder = "Sales Tax Rate" })
-    @Html.TextBoxFor(c => c.FirstBookShipCharge, new { @class = "form-control", type = "number", placeholder = "First Book Shipping Charge" })
-    @Html.TextBoxFor(c => c.AdditionalBookShipCharge, new { @class = "form-control", type = "number", placeholder = "Additional Book Shipping Charge" })
+    <label for="tax">Sales Tax Rate</label>
+    @Html.TextBoxFor(c => c.SalesTaxRate, new { @id = "tax", @class = "form-control", type = "number", placeholder = "Sales Tax Rate" })
+    <label for="first">First Book Shipping Charge</label>
+    @Html.TextBoxFor(c => c.FirstBookShipCharge, new { @id = "first", @class = "form-control", type = "number", placeholder = "First Book Shipping Charge" })
+    <label for="additional">Additional Book Shipping Charge</label>
+    @Html.TextBoxFor(c => c.AdditionalBookShipCharge, new { @id = "additional", @class = "form-control", type = "number", placeholder = "Additional Book Shipping Charge" })
     <input type="submit" , value="Submit" , class="btn btn-info" />
 }

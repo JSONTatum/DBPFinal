@@ -8,10 +8,19 @@
 @using (Html.BeginForm("Upsert", "Customers", FormMethod.Post))
 {
     @Html.HiddenFor(c => c.CustomerID)
-    @Html.TextBoxFor(c => c.Name, new { @class = "form-control", placeholder = "Name" })
-    @Html.TextBoxFor(c => c.Address, new { @class = "form-control", placeholder = "Address" })
-    @Html.TextBoxFor(c => c.City, new { @class = "form-control", placeholder = "City" })
-    @Html.TextBoxFor(c => c.State, new { @class = "form-control", placeholder = "State" })
-    @Html.TextBoxFor(c => c.ZipCode, new { @class = "form-control", placeholder = "Zip Code" })
+    <label for="name">Name</label>
+    @Html.TextBoxFor(c => c.Name, new { @id = "name", @class = "form-control", placeholder = "Name" })
+    <label for="address">Address</label>
+    @Html.TextBoxFor(c => c.Address, new { @id = "address", @class = "form-control", placeholder = "Address" })
+    <label for="city">City</label>
+    @Html.TextBoxFor(c => c.City, new { @id = "city", @class = "form-control", placeholder = "City" })
+    <label for="state">State</label>
+    @Html.TextBoxFor(c => c.State, new { @id = "state", @class = "form-control", placeholder = "State" })
+    <label for="zip">Zip Code</label>
+    @Html.TextBoxFor(c => c.ZipCode, new { @id = "zip", @class = "form-control", placeholder = "Zip Code" })
+    if (Model != null)
+    {
+        <a href="/Customers/Delete/@Model.CustomerID"><input type="button" value="Delete" class="btn btn-danger" /></a>
+    }
     <input type="submit" , value="Submit" , class="btn btn-info" />
 }

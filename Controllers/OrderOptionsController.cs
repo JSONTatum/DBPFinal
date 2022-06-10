@@ -9,7 +9,13 @@ namespace MailletAssignment3.Controllers
 {
     public class OrderOptionsController : Controller
     {
-        // GET: OrderOptions
+        /// <summary>
+        /// Queries order options
+        /// </summary>
+        /// <param name="id">Return order options that match search id</param>
+        /// <param name="sortBy">Sort order options by field</param>
+        /// <param name="isDesc">Swich between descending and ascending</param>
+        /// <returns>View of order options list</returns>
         public ActionResult All(string id, int sortBy = 0, bool isDesc = true)
         {
             //open db connection
@@ -65,7 +71,11 @@ namespace MailletAssignment3.Controllers
             }
             return View(ooList);
         }
-        // UPSERT: OrderOptions
+        /// <summary>
+        /// get orderoption to upsert
+        /// </summary>
+        /// <param name="id">orderoption to get</param>
+        /// <returns>order option object</returns>
         [HttpGet]
         public ActionResult Upsert(int id = 0)
         {
@@ -73,6 +83,11 @@ namespace MailletAssignment3.Controllers
             OrderOption oo = context.OrderOptions.First();
             return View(oo);
         }
+        /// <summary>
+        /// upsert orderoption
+        /// </summary>
+        /// <param name="oo">orderoption object</param>
+        /// <returns>all orderoption view after upsert</returns>
         [HttpPost]
         public ActionResult Upsert(OrderOption oo)
         {
@@ -91,7 +106,7 @@ namespace MailletAssignment3.Controllers
             }
             catch (Exception ex)
             {
-
+                
             }
             return RedirectToAction("All");
         }

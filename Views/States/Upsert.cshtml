@@ -7,7 +7,13 @@
 
 @using (Html.BeginForm("Upsert", "States", FormMethod.Post))
 {
-    @Html.TextBoxFor(c => c.StateCode, new { @class = "form-control", placeholder = "State Code" })
-    @Html.TextBoxFor(c => c.StateName, new { @class = "form-control", placeholder = "State Name" })
+    <label for="statecode">State Code</label>
+    @Html.TextBoxFor(c => c.StateCode, new { @id = "statecode", @class = "form-control", placeholder = "State Code" })
+    <label for="statename">State Name</label>
+    @Html.TextBoxFor(c => c.StateName, new { @id = "statename", @class = "form-control", placeholder = "State Name" })
+    if (Model != null)
+    {
+        <a href="/States/Delete/@Model.StateCode"><input type="button" value="Delete" class="btn btn-danger" /></a>
+    }
     <input type="submit" , value="Submit" , class="btn btn-info" />
 }

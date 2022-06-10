@@ -9,7 +9,13 @@ namespace MailletAssignment3.Controllers
 {
     public class ProductsController : Controller
     {
-        // GET: Products
+        /// <summary>
+        /// Queries products
+        /// </summary>
+        /// <param name="id">Return products that match search id</param>
+        /// <param name="sortBy">Sort products by field</param>
+        /// <param name="isDesc">Swich between descending and ascending</param>
+        /// <returns>View of product list</returns>
         public ActionResult All(string id, int sortBy = 0, bool isDesc = true)
         {
             //open db connection
@@ -77,7 +83,11 @@ namespace MailletAssignment3.Controllers
             }
             return View(prodList);
         }
-        // UPSERT: Products
+        /// <summary>
+        /// get a product by id to upsert
+        /// </summary>
+        /// <param name="id">id of product to get</param>
+        /// <returns>product object</returns>
         [HttpGet]
         public ActionResult Upsert(string id)
         {
@@ -85,6 +95,11 @@ namespace MailletAssignment3.Controllers
             Product prod = context.Products.Where(c => c.ProductCode == id).FirstOrDefault();
             return View(prod);
         }
+        /// <summary>
+        /// upsert a product
+        /// </summary>
+        /// <param name="prod">product to upsert</param>
+        /// <returns>all products view after upserting</returns>
         [HttpPost]
         public ActionResult Upsert(Product prod)
         {
@@ -111,14 +126,23 @@ namespace MailletAssignment3.Controllers
             }
             return RedirectToAction("All");
         }
-        // DELETE: Products
+        /// <summary>
+        /// get a product by id to delete
+        /// </summary>
+        /// <param name="id">product to get</param>
+        /// <returns>product object</returns>
         [HttpGet]
         public ActionResult Delete(string id)
         {
             BookEntities context = new BookEntities();
             Product product = context.Products.Where(c => c.ProductCode== id).FirstOrDefault();
-            return View(product);
+            return Delete(product);
         }
+        /// <summary>
+        /// delete a product
+        /// </summary>
+        /// <param name="product">product to delete</param>
+        /// <returns>all products view after deleting</returns>
         [HttpDelete]
         public ActionResult Delete(Product product)
         {

@@ -9,7 +9,13 @@ namespace MailletAssignment3.Controllers
 {
     public class InvoiceLineItemsController : Controller
     {
-        // GET: InvoiceLineItems
+        /// <summary>
+        /// Queries customers
+        /// </summary>
+        /// <param name="id">Return customers that match id</param>
+        /// <param name="sortBy">Sort customers by field</param>
+        /// <param name="isDesc">Swich between descending and ascending</param>
+        /// <returns>View of customer list</returns>
         public ActionResult All(string id, int sortBy = 0, bool isDesc = true)
         {
             //open db connection
@@ -89,7 +95,11 @@ namespace MailletAssignment3.Controllers
             }
             return View(iltList);
         }
-        // UPSERT: InvoiceLineItems
+        /// <summary>
+        /// get invoicelineitem to upsert
+        /// </summary>
+        /// <param name="id">id of ilt to upsert</param>
+        /// <returns>ilt to upsert</returns>
         [HttpGet]
         public ActionResult Upsert(string id)
         {
@@ -109,6 +119,11 @@ namespace MailletAssignment3.Controllers
             }
             return View(ilt);
         }
+        /// <summary>
+        /// upsert invoice line item
+        /// </summary>
+        /// <param name="ilt">ilt object to delete</param>
+        /// <returns>all ilt view after deleting ilt</returns>
         [HttpPost]
         public ActionResult Upsert(InvoiceLineItem ilt)
         {
@@ -135,22 +150,28 @@ namespace MailletAssignment3.Controllers
             }
             return RedirectToAction("All");
         }
-        // DELETE: InvoiceLineItems
+        /// <summary>
+        /// get invoicelineitem to delete
+        /// </summary>
+        /// <param name="id">id of ilt to delete</param>
+        /// <returns>ilt object to delete</returns>
         [HttpGet]
         public ActionResult Delete(string id)
         {
-            string productCode = id.Substring(0,4);
+            string productCode = id.Substring(0, 4);
             int invoiceID = int.Parse(id.Substring(4));
             BookEntities context = new BookEntities();
             InvoiceLineItem ilt = context.InvoiceLineItems.Where(c => c.ProductCode == productCode && c.InvoiceID == invoiceID).FirstOrDefault();
-            return View(ilt);
+            return Delete(ilt);
         }
+        /// <summary>
+        /// delete invoicelineitem
+        /// </summary>
+        /// <param name="ilt">ilt object to delete</param>
+        /// <returns>all ilt view after deleting</returns>
         [HttpDelete]
         public ActionResult Delete(InvoiceLineItem ilt)
         {
-            //string productCode = id.Substring(0, 4);
-            //int invoiceID = int.Parse(id.Substring(4));
-            //InvoiceLineItem ilt = context.InvoiceLineItems.Where(c => c.ProductCode == productCode && c.InvoiceID == invoiceID).FirstOrDefault();
             BookEntities context = new BookEntities();
             try
             {

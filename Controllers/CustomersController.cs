@@ -9,6 +9,13 @@ namespace MailletAssignment3.Controllers
 {
     public class CustomersController : Controller
     {
+        /// <summary>
+        /// Queries customers
+        /// </summary>
+        /// <param name="id">Return customers that match id</param>
+        /// <param name="sortBy">Sort customers by field</param>
+        /// <param name="isDesc">Swich between descending and ascending</param>
+        /// <returns>View of customer list</returns>
         public ActionResult All(string id, int sortBy = 0, bool isDesc = true)
         {
             //open db connection
@@ -100,7 +107,11 @@ namespace MailletAssignment3.Controllers
             }
             return View(cusList);
         }
-        // UPSERT: Customers
+        /// <summary>
+        /// Get individual customer matching id
+        /// </summary>
+        /// <param name="id">Customer ID</param>
+        /// <returns>Customer object</returns>
         [HttpGet]
         public ActionResult Upsert(int id = 0)
         {
@@ -108,6 +119,11 @@ namespace MailletAssignment3.Controllers
             Customer cus = context.Customers.Where(c => c.CustomerID == id).FirstOrDefault();
             return View(cus);
         }
+        /// <summary>
+        /// Update customer matching ID or adds if no ID exists
+        /// </summary>
+        /// <param name="cus">Customer object to upsert</param>
+        /// <returns>Redirect to all</returns>
         [HttpPost]
         public ActionResult Upsert(Customer cus)
         {
@@ -136,19 +152,27 @@ namespace MailletAssignment3.Controllers
             }
             return RedirectToAction("All");
         }
-        // DELETE: Customers
+        /// <summary>
+        /// get customer matching Id
+        /// </summary>
+        /// <param name="id">Customer ID to find</param>
+        /// <returns>Returns customer object</returns>
         [HttpGet]
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
             BookEntities context = new BookEntities();
             Customer cus = context.Customers.Where(c => c.CustomerID == id).FirstOrDefault();
-            return View(cus);
+            return Delete(cus);
         }
+        /// <summary>
+        /// Delete customer matching object
+        /// </summary>
+        /// <param name="cus">Customer object to delete</param>
+        /// <returns>Returns to All view after deleting</returns>
         [HttpDelete]
         public ActionResult Delete(Customer cus)
         {
             BookEntities context = new BookEntities();
-
             try
             {
                 if (context.Customers.Where(c => c.CustomerID == cus.CustomerID).Count() > 0)
